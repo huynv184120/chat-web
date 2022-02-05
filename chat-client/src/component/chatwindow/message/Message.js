@@ -23,19 +23,23 @@ const useStyles = makeStyles(() => ({
     contentMessage: {
         maxWidth: "calc(40vw)",
         height: "auto",
-        background: "rgb(209, 75, 75, 0.6)",
+        background: "rgb(23, 67, 189, 0.9)",
         borderRadius: "10px",
         padding: "5px",
         wordWrap: "break-word",
-        textAlign: "left"
+        textAlign: "left",
+        color:"white",
+        fontSize:"18px"
     }, contentMessage1: {
         maxWidth: "calc(40vw)",
         height: "auto",
-        background: "rgb(2, 75, 75, 0.6)",
+        background: "rgb(190, 191, 184, 0.6)",
         borderRadius: "10px",
         padding: "5px",
         wordWrap: "break-word",
-        textAlign: "left"
+        textAlign: "left",
+        fontSize:"18px"
+
     },
 
 }))

@@ -1,0 +1,69 @@
+import { makeStyles } from '@material-ui/core';
+import React,{useState} from 'react';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import Drawer from '@material-ui/core/Drawer';
+
+const useStyles = makeStyles(()=>({
+    container:{
+        width:"420px",
+        overflowY: "auto",
+        overflowX: "hidden",
+        background:"",
+        
+    },
+    invitation:{
+        border: "solid 0.1px rgba(186, 172, 171, 0.6)",
+        padding:"10px",
+        display:"flex"
+    },
+    symbol:{
+        position:"absolute",
+        left:"50vw",
+        top:"12px",
+        display:"flex"
+    }
+}));
+
+const Invitation = ({email, roomname}) => {
+    const classes = useStyles();
+    return (
+        <div className={classes.invitation}>
+            <p><b>{email}</b> invites you join <b>{roomname}</b></p>
+            <ButtonGroup disableElevation variant="contained" color="primary" style={{display:"flex", flexWrap:"wrap", alignItems:"center"}}>
+                <Button size="small" style={{height:"20px"}}>accept</Button>
+                <Button size="small" style={{background:"rgb(171, 17, 32)", height:"20px"}}>remove</Button>
+            </ButtonGroup>
+        </div>
+    )
+}
+
+const Invitations = () => {
+    const classes = useStyles();
+    const listInvitation = useSelector(state => state.announce.listInvitation);
+    return (
+        <div className={classes.container}>
+            {listInvitation.map((inv, index) => <Invitation key={index} email={inv.from} roomname={inv.roomname}/>)}
+        </div>
+    )
+}
+
+export const SymbolInvtation = () => {
+    const classes = useStyles();
+    const listInvitation = useSelector(state => state.announce.listInvitation);
+    const [open, setOpen] = useState(false);
+
+    return(<div className={classes.symbol}>
+            <PeopleOutlineIcon style={{ fontSize: "50px", color: "rgb(52, 86, 173)" }} onClick={()=>{setOpen(true)}}/>
+            <div style={{color:"white", background:"rgb(158, 11, 11)" , minWidth:"20px", height:"24px", borderRadius:"3px"}}>
+                <b>
+                    {listInvitation.length}
+                </b>
+            </div>
+            <Drawer anchor="right" open={open} onClose={() => {setOpen(false)}}><div><Invitations/></div></Drawer>
+    </div>)
+}
+
+export default Invitations;
