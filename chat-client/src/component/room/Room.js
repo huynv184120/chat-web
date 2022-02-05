@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         transition:"background 250ms"
     },
     currentRoom:{
-        background:"rgba(94, 173, 115, 1)",
+        background:"rgba(200, 200, 200, 0.8)",
         width: "395px",
         minHeight:"80px",
         display: "flex",
@@ -43,7 +43,7 @@ const Room = ({avatarUrl="", roomName="", lastMessage={}, isCurrentRoom=false ,_
         <Avatar src={avatarUrl} className={classes.large}/>
         <div className={classes.roomContent}>
             <p><b> {roomName} </b></p>
-            <p>{lastMessage.content}</p>
+            <p>{lastMessage?.content}</p>
         </div>
     </div>
 }

@@ -14,10 +14,18 @@ import { addMessage, loadMessages } from './redux/actions/message';
 import { roomApi, messageApi, userApi } from './api';
 import { loadUsers , updateMemberInfo} from './redux/actions/user';
 import { receiveInvitation, loadInvitations } from './redux/actions/announce';
+import Invitations from './component/anncounce/Invitations';
+import ChatAppBar from './component/ChatAppBar';
+
 const useStyles = makeStyles(() => {
   return ({
     appBar: {
-      height: "70px"
+      height: "70px",
+      display:"flex",
+      alignItems:"center",
+      paddingLeft:"30px",
+      paddingRight:"30px",
+      
     },
     "@global": {
       "*::-webkit-scrollbar": {
@@ -67,9 +75,6 @@ const App = () => {
 
       
 
-
-
-
       socket.emit(socketEvent.online, { token: auth });
 
       socket.on(socketEvent.updateMemberInfo,(data)=>{
@@ -100,11 +105,13 @@ const App = () => {
     <div className="App">
       {(!auth) && <Auth />}
       {auth && <div>
-        <div className={classes.appBar}></div>
+        <div className={classes.appBar}>
+          <ChatAppBar/>
+        </div>
         <div style={{ display: "flex" }}>
           <SearchRoom socket={socket} />
           <ChatRoom socket={socket} />
-        </div>
+       </div>
       </div>}
     </div>
   );

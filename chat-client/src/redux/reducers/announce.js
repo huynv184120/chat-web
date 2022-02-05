@@ -14,9 +14,12 @@ const announceReducer = (state=initState, action) => {
             state.listInvitation = state.listInvitation.filter((inv) => inv.room_id !== action.data.room_id);
             return {...state};
         }
+        case announce_action_type.loadInvitations:{
+            state.listInvitation = action.data;
+            return {...state};
+        }
         default:return{...state};
     }
-
 }
 
 export default announceReducer;
