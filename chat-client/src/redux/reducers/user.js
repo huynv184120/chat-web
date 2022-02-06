@@ -9,8 +9,11 @@ const userReducer = (state=initState, action)=>{
             return {...state};
         }
         case user_action_type.updateMemberInfo:{
-            state.listUsers = state.listUsers.filter((user) => user._id !== action.data._id);
-            state.listUsers = [action.data, ...state.listUsers]
+            action.data.forEach(member => {
+                state.listUsers = state.listUsers.filter((user) => user._id !==  member._id);
+                state.listUsers = [member, ...state.listUsers]
+            });
+            
             return {...state};
         }
         default:return state
