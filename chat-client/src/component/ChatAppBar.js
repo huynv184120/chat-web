@@ -1,7 +1,7 @@
 import { SymbolInvtation } from "./anncounce/Invitations";
-const ChatAppBar = () => {
+const ChatAppBar = ({socket}) => {
     return(<div>
-            <SymbolInvtation/>
+            <SymbolInvtation socket={socket}/>
          </div>);
 }
 
