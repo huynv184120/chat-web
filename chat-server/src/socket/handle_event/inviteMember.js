@@ -27,15 +27,20 @@ const inviteMember = (io, socket) => {
         const room = await RoomModel.findById(room_id);
         const user = await UserModel.findById(socket.user_id);
         if(data.accept){
+            room.members = [socket.user_id, ...room.members];
+            user.rooms = [room_id, ...user.rooms];  
+            io.to(room._id.toString()).emit(socketEvent.updateMemberInfo,[{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online}]);
+            io.to(room._id.toString()).emit(socketEvent.updateRoomInfo, room);
             socket.join(room._id.toString());                
             socket.emit(socketEvent.joinRoom, room);
-            io.to(room_id).emit(socketEvent.updateMemberInfo,{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online});
+            const listUsers = await UserModel.find({_id:{$in : room.members}});
+            let infoUsers = []
+            listUsers.forEach((user) => {infoUsers = [{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online},...infoUsers]});
+            socket.emit(socketEvent.updateMemberInfo, infoUsers);
         }
        
-        user.rooms = [room_id, ...user.rooms];
         user.accessible = user.accessible.filter((acc) => acc.room_id !== room_id);
         user.save();
-        room.members = [socket.user_id, ...room.members];
         room.invitedUsers = room.invitedUsers.filter((_id) => _id !== socket.user_id);
         room.save(); 
         });

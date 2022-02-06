@@ -8,7 +8,6 @@ const getRooms = async (req, res) => {
         let listIdUsers = []
         listRooms.forEach((room) => {listIdUsers = [...room.members,...listIdUsers]});
         const listUsers = await UserModel.find({_id:{$in : listIdUsers}});
-        infoUsers = []
         listUsers.forEach((user) => {infoUsers = [{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online},...infoUsers]})
         res.status(200).json({data:listRooms, users:infoUsers});
     }catch(err){
