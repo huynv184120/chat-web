@@ -1,6 +1,7 @@
 export const user_action_type ={
     loadUsers: "loadUsers",
-    updateMemberInfo:"updateMemberInfo"
+    updateMemberInfo:"updateMemberInfo",
+    loadMyInfo:"loadMyInfo"
 };
 
 export const loadUsers = (data) => {
@@ -13,6 +14,13 @@ export const loadUsers = (data) => {
 export const updateMemberInfo = (data) => {
     return{
         type: user_action_type.updateMemberInfo,
+        data:data
+    }
+}
+
+export const loadMyInfo = (data) => {
+    return{
+        type: user_action_type.loadMyInfo,
         data:data
     }
 }

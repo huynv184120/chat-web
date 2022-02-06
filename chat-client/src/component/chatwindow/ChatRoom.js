@@ -1,8 +1,9 @@
-import { HeaderRoomChat, ListMessages, InputMessage, RoomManage } from '.';
+import { HeaderRoomChat, ListMessages, InputMessage } from '.';
 import { makeStyles } from '@material-ui/core';
 import { useState } from 'react';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { RoomManage } from '../room';
 
 const useStyles = makeStyles(() => ({
     container:{

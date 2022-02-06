@@ -1,6 +1,6 @@
 import { user_action_type } from "../actions/user";
 
-const initState = {listUsers:[]};
+const initState = {listUsers:[], myInfo:{}};
 
 const userReducer = (state=initState, action)=>{
     switch(action.type){
@@ -14,6 +14,10 @@ const userReducer = (state=initState, action)=>{
                 state.listUsers = [member, ...state.listUsers]
             });
             
+            return {...state};
+        }
+        case user_action_type.loadMyInfo:{
+            state.myInfo = action.data;
             return {...state};
         }
         default:return state
