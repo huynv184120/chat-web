@@ -21,10 +21,10 @@ const login = async (req, res) => {
                 res.cookie("user_id",user._id);
                 res.status(200).json({message : "success"});
             }else{
-                res.status(500).json({message : "email or password is incorrect"});
+                res.status(200).json({message : "email or password is incorrect"});
             }
         }else{
-            res.status(500).json({message : "email or password is incorrect"});
+            res.status(200).json({message : "email or password is incorrect"});
         }
     }catch(err){
         res.status(500);
@@ -37,7 +37,7 @@ const signup = async (req, res) => {
     try{
     const user = await UserModel.findOne({ email: req.body.email });
     if (user) {
-        res.status(500).json({ message: "email was used" });
+        res.status(200).json({ message: "email was used" });
     }
     else {
 
@@ -51,7 +51,7 @@ const signup = async (req, res) => {
             res.status(200).json({ message: "success" });
         })
     }}catch(err){       
-            res.status(500).json({ message: "email was used" });
+            res.status(200).json({ message: "email was used" });
     };
 }
 

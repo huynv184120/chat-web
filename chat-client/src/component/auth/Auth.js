@@ -91,7 +91,8 @@ const Auth = () => {
     const [loginForm, setLoginForm] = useState({
         email: '',
         password: '',
-        showPassword: true
+        showPassword: true,
+        annouce:""
     })
 
     const [signupForm, setSignupForm] = useState({
@@ -99,7 +100,8 @@ const Auth = () => {
         password: '',
         username: '',
         showPassword: true,
-        confirmPassword:true
+        confirmPassword:true,
+        annouce:""
     })
 
     const [verifyForm, setVerifyForm] = useState({
@@ -111,18 +113,27 @@ const Auth = () => {
 
 
     const loginHandle = async () => {
-        const res= await authApi.login({email:loginForm.email, password: loginForm.password});
+        const res = await authApi.login({email:loginForm.email, password: loginForm.password});
+        console.log(res.message)
         if(res.message === "success"){
             window.location.reload();
+        }else{
+            setLoginForm({...loginForm,annouce:res.message});
         }
     }
 
     const signupHandle = async () => {
-        await authApi.signup({email:signupForm.email, username:signupForm.username, password:signupForm.password});
+        const res = await authApi.signup({email:signupForm.email, username:signupForm.username, password:signupForm.password});
+        if(res.message === "success"){
+            window.location.reload();
+        }else{
+            setSignupForm({...signupForm, annouce:res.message});
+        }
     }
-    const verifyHandle = () => {
-        console.log(verifyForm)
-    }
+
+    // const verifyHandle = () => {
+    //     console.log(verifyForm)
+    // }
 
 
     return (
@@ -132,6 +143,7 @@ const Auth = () => {
                     <form autoComplete='off'>
                         <div className={classes.loginForm}>
                             <h1>Login</h1>
+                            <p style={{color:"red"}}>{loginForm.annouce}</p>
                             <TextField
                                 required
                                 id="input-with-icon-textfield"
@@ -175,10 +187,10 @@ const Auth = () => {
                                 <a onClick={() => { setLogin(false); setSignup(true) }}>
                                     sign up
                                 </a>
-                                <label> or </label>
+                                {/* <label> or </label>
                                 <a onClick={() => { setLogin(false); setVerify(true) }}>
                                     verify
-                                </a>
+                                </a> */}
                             </p>
                         </div>
                     </form>}
@@ -187,6 +199,7 @@ const Auth = () => {
                     <form autoComplete='off'>
                         <div className={classes.loginForm}>
                             <h1>Sign up</h1>
+                            <p style={{color:"red"}}>{signupForm.annouce}</p>
                             <TextField
                                 required
                                 id="input-with-icon-textfield"
@@ -271,15 +284,15 @@ const Auth = () => {
                                 <a onClick={() => { setLogin(true); setSignup(false) }}>
                                     login
                                 </a>
-                                <label> or </label>
+                                {/* <label> or </label>
                                 <a onClick={() => { setSignup(false); setVerify(true) }}>
                                     verify
-                                </a>
+                                </a> */}
                             </p>
                         </div>
                     </form>}
 
-                {verify &&
+                {/* {verify &&
                     <form autoComplete='off'>
                         <div className={classes.verify}>
                             <h1>Verify account</h1>
@@ -326,7 +339,7 @@ const Auth = () => {
                                 </a>
                             </p>
                         </div>
-                    </form>}
+                    </form>} */}
             </div>
         </div>
 
