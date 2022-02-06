@@ -106,7 +106,7 @@ const App = () => {
       {(!auth) && <Auth />}
       {auth && <div>
         <div className={classes.appBar}>
-          <ChatAppBar/>
+          <ChatAppBar socket={socket}/>
         </div>
         <div style={{ display: "flex" }}>
           <SearchRoom socket={socket} />

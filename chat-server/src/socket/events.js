@@ -10,6 +10,8 @@ const socketEvent = {
     updateMemberInfo:"updateMemberInfo",
     inviteMember:"inviteMember",
     invite:"invite",
+    acceptJoinRoom:"acceptJoinRoom",
+    
 }
 
 module.exports = socketEvent;

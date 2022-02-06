@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "flex-start",
         alignItems: "center",
         borderRadius:  "7px",
+        textAlign:"left",
         "&:hover" :{
             background:"rgba(189, 177, 153, 0.2)",
         },
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "flex-start",
         alignItems: "center",
         borderRadius:  "7px",
+        textAlign:"left",
         transition:"background 250ms"
     },
     roomContent : {
