@@ -15,7 +15,7 @@ const online = (io, socket) => {
             if (user) {
                 user.rooms.forEach(room => {
                     socket.join(room);
-                    io.to(room).emit(socketEvent.updateMemberInfo,{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online});
+                    io.to(room).emit(socketEvent.updateMemberInfo,[{_id:user._id,email : user.email, avatar:user.avatar, username:user.username, online:user.online}]);
                 });
             }
             console.log(user.username + " online");

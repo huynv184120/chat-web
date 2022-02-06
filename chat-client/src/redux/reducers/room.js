@@ -9,12 +9,10 @@ const roomReducer = (state = initState, action) => {
 
     switch (action.type) {
         case room_action_type.changeRoomInfo: {
-            let room = state.listRoom.find((room) => (action.data._id === room._id));
-            if (room) {
-                room = { ...room, ...action.data };
-                state = { ...state, ...action.data };
-            }
-            return state;
+            let index = state.listRoom.findIndex((room) => (action.data._id === room._id));
+            state.listRoom[index] = action.data;
+            state.listRoom = [...state.listRoom];
+            return {...state};
         }
         case room_action_type.leaveRoom: {
             const rooms = state.listRoom.filter((room) => (action.data._id !== room._id));

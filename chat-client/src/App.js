@@ -9,23 +9,22 @@ import { useDispatch } from 'react-redux';
 import io from "socket.io-client";
 import config from './config';
 import socketEvent from './socket_io/events';
-import { joinRoom, loadRooms, updateLastMessage } from "./redux/actions/room";
+import { changeRoomInfo, joinRoom, loadRooms, updateLastMessage } from "./redux/actions/room";
 import { addMessage, loadMessages } from './redux/actions/message';
 import { roomApi, messageApi, userApi } from './api';
-import { loadUsers , updateMemberInfo} from './redux/actions/user';
+import { loadMyInfo, loadUsers, updateMemberInfo } from './redux/actions/user';
 import { receiveInvitation, loadInvitations } from './redux/actions/announce';
-import Invitations from './component/anncounce/Invitations';
 import ChatAppBar from './component/ChatAppBar';
 
 const useStyles = makeStyles(() => {
   return ({
     appBar: {
       height: "70px",
-      display:"flex",
-      alignItems:"center",
-      paddingLeft:"30px",
-      paddingRight:"30px",
-      
+      display: "flex",
+      alignItems: "center",
+      paddingLeft: "30px",
+      paddingRight: "30px",
+
     },
     "@global": {
       "*::-webkit-scrollbar": {
@@ -53,47 +52,55 @@ const App = () => {
 
   useEffect(async () => {
     if (auth) {
+
       const res = await roomApi.getRooms();
       const rooms = res.data;
       dispatch(loadRooms(rooms));
-      const listRoomMess = rooms.map((room)=>messageApi.getMessages(room._id));
+
+      const listRoomMess = rooms.map((room) => messageApi.getMessages(room._id));
       await Promise.all(listRoomMess);
       const users = res.users;
+      dispatch(loadMyInfo(res.myInfo));
       dispatch(loadUsers(users));
 
       listRoomMess.forEach(element => {
-        element.then((data)=>{
+        element.then((data) => {
           dispatch(loadMessages(data));
-          dispatch(updateLastMessage({room_id:data.room_id ,lastMessage:data.messages[data.messages.length - 1]}))
+          dispatch(updateLastMessage({ room_id: data.room_id, lastMessage: data.messages[data.messages.length - 1] }));
         })
       });
 
       const invitations = userApi.getinvitations();
-      invitations.then((data)=>{
+      invitations.then((data) => {
         dispatch(loadInvitations(data));
-      }).catch(()=>{})
+      }).catch(() => { })
 
-      
 
       socket.emit(socketEvent.online, { token: auth });
 
-      socket.on(socketEvent.updateMemberInfo,(data)=>{
+      socket.on(socketEvent.updateMemberInfo, (data) => {
         dispatch(updateMemberInfo(data));
       });
 
-      socket.on(socketEvent.joinRoom, (room) => {
+      socket.on(socketEvent.joinRoom, async (room) => {
         dispatch(joinRoom(room));
+        const data = await messageApi.getMessages(room._id);
+        dispatch(loadMessages(data));
+
       });
 
       socket.on(socketEvent.addMessage, (message) => {
         dispatch(addMessage(message));
-        dispatch(updateLastMessage({room_id:message.to ,lastMessage:message}));
+        dispatch(updateLastMessage({ room_id: message.to, lastMessage: message }));
       });
 
       socket.on(socketEvent.invite, (data) => {
         dispatch(receiveInvitation(data));
       });
 
+      socket.on(socketEvent.updateRoomInfo, (data) => {
+        dispatch(changeRoomInfo(data));
+      })
     }
 
 
@@ -106,12 +113,12 @@ const App = () => {
       {(!auth) && <Auth />}
       {auth && <div>
         <div className={classes.appBar}>
-          <ChatAppBar socket={socket}/>
+          <ChatAppBar socket={socket} />
         </div>
         <div style={{ display: "flex" }}>
           <SearchRoom socket={socket} />
           <ChatRoom socket={socket} />
-       </div>
+        </div>
       </div>}
     </div>
   );

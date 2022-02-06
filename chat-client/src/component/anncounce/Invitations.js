@@ -69,7 +69,7 @@ export const SymbolInvtation = ({ socket }) => {
     const [open, setOpen] = useState(false);
 
     return (<div className={classes.symbol}>
-        <PeopleOutlineIcon style={{ fontSize: "50px", color: "rgb(52, 86, 173)" }} onClick={() => { setOpen(true) }} />
+        <PeopleOutlineIcon style={{ fontSize: "50px", color: "rgb(52, 86, 173)" , borderRadius:"10px" , boder:"solid", background:"rgb(209, 224, 213)" }} onClick={() => {setOpen(true)}} />
         <div style={{ color: "white", background: "rgb(158, 11, 11)", minWidth: "20px", height: "24px", borderRadius: "3px" }}>
             <b>
                 {listInvitation.length}
