@@ -98,7 +98,7 @@ const App = () => {
         dispatch(receiveInvitation(data));
       });
 
-      socket.on(socketEvent.updateRoomInfo, (data) => {
+      socket.on(socketEvent.updateRoom, (data) => {
         dispatch(changeRoomInfo(data));
       })
     }
