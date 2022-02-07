@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
         borderRadius: "30px",
         position: "absolute",
         top: "15%",
-        right: "200px",
+        right: "15vw",
         "min-height": "450px",
     },
     loginForm: {
@@ -137,7 +137,7 @@ const Auth = () => {
 
 
     return (
-        <div>
+        <div style={{backgroundImage:"url(https://i.pinimg.com/564x/8d/12/8d/8d128d89ab8baf0c70defe825281825f.jpg)",backgroundSize:"100vw 105vh", width:"100vw", height:"100vh"}}>
             <div className={classes.authen}>
                 {login &&
                     <form autoComplete='off'>
