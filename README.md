@@ -16,6 +16,7 @@ git clone "https://github.com/huynv184120/chat-web.git"
 ```
 2. Install NPM packages
 ```
+cd chat-server
 npm install
 ```
 ## Usage
