@@ -12,7 +12,7 @@ This is a web application that allows you to create rooms to chat with other peo
 ## Installation
 1. Clone the repo
 ```
-git clone 
+git clone "https://github.com/huynv184120/chat-web.git"
 ```
 2. Install NPM packages
 ```
