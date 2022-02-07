@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux"
-import { online } from "../../socket_io/events";
-import { ListMessages } from "../chatwindow";
+import { useSelector } from "react-redux";
 import Member from "./Member";
 
 const ListMembers = () => {

@@ -7,11 +7,12 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const socketController = require("./src/socket/handle_event");
-
+const path = require("path");
+const socketEvent = require("./src/socket/events");
 dotenv.config();
 
 const configCors = {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials:true,
     optionsSuccessStatus: 204
@@ -19,12 +20,11 @@ const configCors = {
 
 const configCorsSocket = {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "*",
       credentials:true,
       allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'Cookies']    
     }
 }
-
 
 
 
@@ -33,6 +33,12 @@ app.use(cors(configCors));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname + '/../chat-client/build')));
+app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname + '/../chat-client/build/index.html'));
+})
+
 db.connect(process.env.MONGODB_URL);
 const server = require("http").Server(app);
 const io = require("socket.io")(server,configCorsSocket);
@@ -50,6 +56,7 @@ io.on("connect", (socket) => {
     socketController.createRoom(io, socket);
     socketController.sendMessage(io, socket);
     socketController.inviteMember(io, socket);
+    socketController.editRoomInfo(io, socket);
 })
 
 server.listen(5000);

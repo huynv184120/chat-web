@@ -1,5 +1,5 @@
 const config = {
-    REACT_APP_API_URL:"http://localhost:5000/api",
-    END_POINT : "http://localhost:5000"
+    REACT_APP_API_URL:"/api",
+    END_POINT : ""
 }
 export default config;
