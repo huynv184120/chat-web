@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import { memo } from "react";
 import ListMembers from "../user/ListMembers";
@@ -41,6 +41,14 @@ const RoomManage = ({ socket }) => {
             socket.emit(socketEvent.updateRoomInfo, roomInfo);
         setEdit(true);
     }
+
+    useEffect(() => {
+        setRoomInfo({
+            roomname: room.roomname,
+            _id: currentRoom
+        });
+    }, [currentRoom]);
+    
 
     return (
         <div className={classes.roomSetting}>
