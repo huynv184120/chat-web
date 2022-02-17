@@ -5,11 +5,21 @@
     "static/js/787.a8d965e1.chunk.js": "/static/js/787.a8d965e1.chunk.js",
     "index.html": "/index.html",
     "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
+<<<<<<< HEAD
     "main.d8c80366.js.map": "/static/js/main.d8c80366.js.map",
+=======
+    "main.4f0d52c8.js.map": "/static/js/main.4f0d52c8.js.map",
+
+>>>>>>> e390cf98e43ead22d8ba58f8087e104cd8ce12aa
     "787.a8d965e1.chunk.js.map": "/static/js/787.a8d965e1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
+<<<<<<< HEAD
     "static/js/main.d8c80366.js"
+=======
+    "static/js/main.4f0d52c8.js"
+
+>>>>>>> e390cf98e43ead22d8ba58f8087e104cd8ce12aa
   ]
 }
