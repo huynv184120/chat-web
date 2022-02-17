@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const ListMessages = () => {   
+const ListMessages = ({socket}) => {   
     const mess_count = useRef(0);
     const bottom = useRef(null);
     const classes = useStyles();
@@ -37,7 +37,6 @@ const ListMessages = () => {
         }else{
             currentRoomMess[i].notSelf = false;            
         }
-
     }
     if ((currentRoomMess.length >=1) && (currentRoomMess[0].from !== self)) {
         currentRoomMess[0].user = users.find((user) => user._id === currentRoomMess[0].from);
@@ -50,8 +49,8 @@ const ListMessages = () => {
 
     return (
         <div className={classes.messagesContainer}>
-
-            {currentRoomMess.map((mess) => <Message key={mess._id} content={mess.content} user={mess.user} notSelf={mess.notSelf}/>)}
+            <div style={{minHeight:"40px"}}></div>
+            {currentRoomMess.map((mess) => <Message key={mess._id} id={mess._id} content={mess.content} user={mess.user} reactions={mess.reactions} notSelf={mess.notSelf} socket={socket}/>)}
             <div ref={bottom}/>
         </div>);
 }

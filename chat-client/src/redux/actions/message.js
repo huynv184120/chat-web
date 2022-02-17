@@ -1,13 +1,13 @@
 export const mess_action_type = {
-    reactMessage:"REACT_MESSAGE",
+    updateMessage:"UPDATE_MESSAGE",
     deleteMessage:"DELETE_MESSAGE",
     addMessage:"ADD_MESSAGE",
     loadMessages:"LOAD_MESSAGES"
 };
 
-export const reactMessage = (data) => {
+export const updateMessage = (data) => {
     return {
-        type: mess_action_type.reactMessage,
+        type: mess_action_type.updateMessage,
         data:data
     };
 };
@@ -32,3 +32,4 @@ export const loadMessages = (data) => {
         data:data
     }
 };
+

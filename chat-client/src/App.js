@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import config from './config';
 import socketEvent from './socket_io/events';
 import { changeRoomInfo, joinRoom, loadRooms, updateLastMessage } from "./redux/actions/room";
-import { addMessage, loadMessages } from './redux/actions/message';
+import { addMessage, loadMessages, updateMessage } from './redux/actions/message';
 import { roomApi, messageApi, userApi } from './api';
 import { loadMyInfo, loadUsers, updateMemberInfo } from './redux/actions/user';
 import { receiveInvitation, loadInvitations } from './redux/actions/announce';
@@ -100,9 +100,15 @@ const App = () => {
 
       socket.on(socketEvent.updateRoom, (data) => {
         dispatch(changeRoomInfo(data));
-      })
-    }
+      });
 
+      socket.on(socketEvent.updateMessage, (message)=> {
+        dispatch(updateMessage(message));
+      });
+    }
+    return () => {
+      socket.removeAllListeners();
+    }
 
   }, [])
 

@@ -30,6 +30,13 @@ const messageReducer = (state = initState, action) => {
             state.listMessages = [...state.listMessages, { room_id: action.data.room_id, messages: action.data.messages }];
             return { ...state };
         }
+        case mess_action_type.updateMessage: {
+            const roomMessage = state.listMessages.find((oj) => action.data.to === oj.room_id);
+            const index = roomMessage.messages.findIndex((mess) => (mess._id == action.data._id));
+            roomMessage.messages[index] = action.data;
+            state.listMessages = [...state.listMessages];
+            return {...state};
+        }
         default: {
             return state;
         }
