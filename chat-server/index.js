@@ -57,6 +57,7 @@ io.on("connect", (socket) => {
     socketController.sendMessage(io, socket);
     socketController.inviteMember(io, socket);
     socketController.editRoomInfo(io, socket);
+    socketController.messageChange(io, socket);
 })
 
 server.listen(5000);

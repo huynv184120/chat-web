@@ -34,7 +34,7 @@ const ChatRoom = ({socket}) => {
         <div className={classes.container}>
            {currentRoom&&<div className={classes.chatRoom}>
                 <HeaderRoomChat setSetting={setManage}/>
-                <ListMessages />
+                <ListMessages socket={socket} />
                 <InputMessage socket={socket}/>
             </div>}
             {manage && <RoomManage socket={socket}/>}
