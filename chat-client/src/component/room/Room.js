@@ -31,7 +31,13 @@ const useStyles = makeStyles((theme) => ({
         transition:"background 250ms"
     },
     roomContent : {
-        marginLeft: "20px"
+        marginLeft: "20px",
+        maxWidth:"285px",
+        overflow:"hidden",
+        "& p":{
+            textOverflow:"ellipsis"       
+        }
+
     },
     large: {
         width: theme.spacing(8),
