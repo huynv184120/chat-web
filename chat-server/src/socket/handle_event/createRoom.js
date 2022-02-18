@@ -14,7 +14,7 @@ const createRoom = (io, socket) => {
                 });
                 socket.join(room._id.toString());                
                 socket.emit(socketEvent.joinRoom, room);
-                user.rooms = [room._id.toString(),...user.rooms]
+                user.rooms = [room._id.toString(),...user.rooms];
                 user.save();
             };
         } catch (err) {

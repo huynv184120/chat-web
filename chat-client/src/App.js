@@ -102,6 +102,9 @@ const App = () => {
       socket.on(socketEvent.updateRoom, (data) => {
         dispatch(changeRoomInfo(data));
       });
+      socket.on(socketEvent.updateRoomInfo, (data) => {
+        dispatch(changeRoomInfo(data));
+      });
 
       socket.on(socketEvent.updateMessage, (message)=> {
         dispatch(updateMessage(message));
