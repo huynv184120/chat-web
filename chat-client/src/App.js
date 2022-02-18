@@ -90,7 +90,6 @@ const App = () => {
       });
 
       socket.on(socketEvent.addMessage, (message) => {
-        console.log(message);
         dispatch(addMessage(message));
         dispatch(updateLastMessage({ room_id: message.to, lastMessage: message }));
       });
