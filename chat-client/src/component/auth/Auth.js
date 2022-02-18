@@ -184,8 +184,8 @@ const Auth = () => {
                             </Button>
 
                             <p>
-                                <a onClick={() => { setLogin(false); setSignup(true) }}>
-                                    sign up
+                                <a onClick={() => { setLogin(false); setSignup(true) }} style={{cursor:"pointer"}}>
+                                    <u>sign up</u>
                                 </a>
                                 {/* <label> or </label>
                                 <a onClick={() => { setLogin(false); setVerify(true) }}>
@@ -198,7 +198,7 @@ const Auth = () => {
                 {signup &&
                     <form autoComplete='off'>
                         <div className={classes.loginForm}>
-                            <h1>Sign up</h1>
+                            <h1>Create Account</h1>
                             <p style={{color:"red"}}>{signupForm.annouce}</p>
                             <TextField
                                 required
@@ -281,8 +281,8 @@ const Auth = () => {
                             </Button>
 
                             <p>
-                                <a onClick={() => { setLogin(true); setSignup(false) }}>
-                                    login
+                                <a onClick={() => { setLogin(true); setSignup(false) }} style={{cursor:"pointer"}}>
+                                    <u>login</u>
                                 </a>
                                 {/* <label> or </label>
                                 <a onClick={() => { setSignup(false); setVerify(true) }}>

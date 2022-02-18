@@ -71,7 +71,7 @@ export const SymbolMyInfo = () => {
     const [open, setOpen] = useState(false);
 
     return (<div className={classes.symbol}>
-        <PermIdentityIcon style={{ fontSize: "50px", color: "rgb(52, 86, 173)", borderRadius: "10px", boder: "solid", background: "rgb(209, 224, 213)" }} onClick={() => { setOpen(true) }} />
+        <PermIdentityIcon style={{ fontSize: "50px", color: "rgb(52, 86, 173)", borderRadius: "10px", boder: "solid", background: "rgb(209, 224, 213)" , cursor:"pointer"}} onClick={() => { setOpen(true) }} />
         <Drawer anchor="right" open={open} onClose={() => { setOpen(false) }}>
             <div>
                 <MyInfo />

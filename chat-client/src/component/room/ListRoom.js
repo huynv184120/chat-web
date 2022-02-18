@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
         overflowY: "auto",
         overflowX: "hidden",
         display:"flex",
+        paddingLeft:"5px",
         flexDirection:"column",
         height:"calc(100vh - 260px)",
         }

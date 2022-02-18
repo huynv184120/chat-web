@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
         height: "60px",
         marginTop: "20px",
         "& input": {
-            marginLeft: "10px",
+            marginLeft: "5px",
             width: "100%",
             height: "32px",
             borderRadius: "12px",
@@ -73,9 +73,9 @@ const SearchRoom = ({ socket=null }) => {
         <div className={classes.sideMenu}>
             <div className={classes.headerSide}>
                 <div>
-                    <p style={{ fontSize: 30, fontWeight: "bold" }}>Chat</p>
+                    <p style={{ fontSize: 30, fontWeight: "bold", marginLeft:"5px" }}> Chat</p>
                 </div>
-                <div style={{ background: "rgba(186, 172, 171, 0.6)", borderRadius: "100%" }}>
+                <div style={{ background: "rgba(186, 172, 171, 0.6)", borderRadius: "100%",width:"40px" , cursor:"pointer"}}>
                     <AddIcon style={{ fontSize: 35 }} onClick={handleCreateRoom} />
                 </div>
 

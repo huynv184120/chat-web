@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 
 const ChatRoom = ({socket}) => {
     const classes = useStyles();
-    const [manage, setManage] = useState(false)
+    const [manage, setManage] = useState(true);
 
     const currentRoom = useSelector(state => state.room.currentRoom);
 

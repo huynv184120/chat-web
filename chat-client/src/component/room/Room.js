@@ -5,7 +5,7 @@ import { memo } from "react";
 
 const useStyles = makeStyles((theme) => ({
     room : {
-        width: "395px",
+        width: "390px",
         minHeight:"80px",
         display: "flex",
         alignContent: "flex-start",
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     currentRoom:{
         background:"rgba(200, 200, 200, 0.8)",
-        width: "395px",
+        width: "390px",
         minHeight:"80px",
         display: "flex",
         alignContent: "flex-start",
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(8),
         height: theme.spacing(8),
+        marginLeft:"8px"
       },
 }))
 
