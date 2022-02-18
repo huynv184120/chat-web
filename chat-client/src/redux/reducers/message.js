@@ -9,7 +9,7 @@ const messageReducer = (state = initState, action) => {
         case mess_action_type.addMessage: {
             const roomMessage = state.listMessages.find((oj) => action.data.to === oj.room_id);
             if (roomMessage) {
-                if(roomMessage.messages[roomMessage.messages.length-1]._id !== action.data._id){
+                if((roomMessage.messages.length === 0)||(roomMessage.messages[roomMessage.messages.length-1]._id !== action.data._id)){
                     roomMessage.messages = [...roomMessage.messages, action.data];
                     state.listMessages = [...state.listMessages];
                 }
