@@ -59,9 +59,9 @@ const SearchRoom = ({ socket=null }) => {
         setIsSearch(true);
     }, []);
 
-    const handleResult = useCallback((e) => {
+    const handleResult = (e) => {
         setResult(listRoom.filter((room) => room.roomname.includes(e.target.value)));
-    }, []);
+    };
 
     const handleCreateRoom = useCallback(() => {
         socket.emit(socketEvent.createRoom, {});
