@@ -37,7 +37,7 @@ const ChatRoom = ({socket}) => {
                 <ListMessages socket={socket} />
                 <InputMessage socket={socket}/>
             </div>}
-            {manage && <RoomManage socket={socket}/>}
+            {manage && currentRoom &&<RoomManage socket={socket}/>}
             
         </div>
     );

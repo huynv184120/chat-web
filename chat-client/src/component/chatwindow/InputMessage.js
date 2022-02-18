@@ -7,6 +7,8 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import socketEvent from "../../socket_io/events";
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
 
 const useStyles = makeStyles(() => ({
     inputContainer: {
@@ -51,6 +53,7 @@ const InputMessages = ({ socket }) => {
     const classes = useStyles();
     const currentRoom = useSelector(state => state.room.currentRoom);
     const [message, setMessage] = useState({ ...initMess });
+    const [showEmoji, setShowEmoji] = useState(false)
 
     const sendMessage = () => {
         message.to = currentRoom;
@@ -60,6 +63,9 @@ const InputMessages = ({ socket }) => {
             socket.emit(socketEvent.sendMessage, message);
         setMessage({ ...initMess });
     };
+    const handleEmojiSelect = (e)=>{
+        setMessage((message) => ({...message, content:(message.content+e.native)}));
+    }
 
 
     return (
@@ -72,12 +78,19 @@ const InputMessages = ({ socket }) => {
                     fullWidth variant="outlined"
                     placeholder="Aa"
                     InputProps={{
-                        endAdornment: <SentimentVerySatisfiedIcon style={{ fontSize: "40px", color: "rgb(52, 86, 173)" }} />
+                        endAdornment: <SentimentVerySatisfiedIcon style={{ fontSize: "40px", color: "rgb(52, 86, 173)" , cursor:"pointer"}} onClick={()=>{setShowEmoji(!showEmoji)}}/>
                     }}
                     value={message.content}
                     onChange={(e) => setMessage({ ...message, content: e.target.value })}
                     onKeyDown={(e) => { if (e.key == 'Enter') sendMessage(); }}
                 />
+                {showEmoji && (
+                    <div style={{ position: "absolute", bottom: "80px", right: "12%", zIndex: "1" }}>
+                        <Picker
+                                onSelect={handleEmojiSelect}
+                            emojiSize={20} />
+                    </div>
+                )}
             </div>
             <div className={classes.submitContainer}>
                 <SendIcon style={{ fontSize: "40px", color: "rgb(52, 86, 173)" }} onClick={sendMessage} />
