@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
             background: "rgba(189, 177, 153, 0.6)",
             borderRadius: "50%"
         },
+        cursor:"pointer"
     },
     emoji: {
         fontSize: '30px', cursor: 'pointer'

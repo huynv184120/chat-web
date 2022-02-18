@@ -7,6 +7,7 @@ const socketEvent = {
     sendMessage:"sendMessage",
     addMessage:"addMessage",
     reactMessage:"reactMessage",
+    deleteMessage:"deleteMessage",
     updateMemberInfo:"updateMemberInfo",
     inviteMember:"inviteMember",
     invite:"invite",

@@ -50,7 +50,7 @@ const ListMessages = ({socket}) => {
     return (
         <div className={classes.messagesContainer}>
             <div style={{minHeight:"40px"}}></div>
-            {currentRoomMess.map((mess) => <Message key={mess._id} id={mess._id} content={mess.content} user={mess.user} reactions={mess.reactions} notSelf={mess.notSelf} createdAt={mess.createdAt} socket={socket}/>)}
+            {currentRoomMess.map((mess) => <Message key={mess._id} id={mess._id} content={mess.content} user={mess.user} reactions={mess.reactions} notSelf={mess.notSelf} createdAt={mess.createdAt} deleted={mess.deleted} socket={socket}/>)}
             <div ref={bottom}/>
         </div>);
 }

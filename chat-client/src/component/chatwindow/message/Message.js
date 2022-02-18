@@ -4,11 +4,12 @@ import { makeStyles } from "@material-ui/core";
 import { memo } from "react";
 import Member from "../../user/Member";
 import Reaction from "./Reaction";
+import DeleteIcon from '@material-ui/icons/Delete';
+import socketEvent from "../../../socket_io/events";
 
 const useStyles = makeStyles(() => ({
     selfMessage: {
         display: "flex",
-        alignItems: "flex-end",
         margin: "4px",
         marginRight: "30px",
         flexDirection: "row",
@@ -33,7 +34,6 @@ const useStyles = makeStyles(() => ({
         textAlign: "left",
         color: "white",
         fontSize: "18px",
-        position: "relative",
         marginBottom: "10px",
         position: "relative"
     }, contentMessage1: {
@@ -46,7 +46,6 @@ const useStyles = makeStyles(() => ({
         wordWrap: "break-word",
         textAlign: "left",
         fontSize: "18px",
-        position: "relative",
         marginBottom: "10px",
         position: "relative"
     }, listEmoji: {
@@ -74,31 +73,39 @@ const useStyles = makeStyles(() => ({
         zIndex: "99",
         display: "block",
         minWidth: "190px"
-    },time1:{
+    }, time1: {
         position: "absolute",
         borderRadius: "5px",
         background: "rgb(81, 84, 89, 0.8)",
         color: "rgb(216, 221, 230)",
-        left: "-50px",
+        left: "-60px",
         transform: "translate(-100%)",
         top: "-1px",
         zIndex: "99",
         display: "block",
         minWidth: "190px"
+    }, deleteButton: {
+        "&:hover": {
+            color: "rgb(53, 56, 54)",
+            background: "rgba(189, 177, 153, 0.6)",
+            borderRadius: "50%"
+        },
+        cursor: "pointer",
+        color: "rgb(83, 99, 86, 0.7)"
     }
 
 
 }))
 
-const Message = ({ notSelf, id, user, content, reactions, createdAt, socket }) => {
+const Message = ({ notSelf, id, user, content, reactions, createdAt, deleted, socket }) => {
     const classes = useStyles();
     const [show, setShow] = useState(false);
     const [showTime, setShowTime] = useState(false);
 
     const listEmoji = () => {
-        const type_1 = reactions.filter((reaction) => reaction.type == 1);
-        const type_2 = reactions.filter((reaction) => reaction.type == 2);
-        const type_3 = reactions.filter((reaction) => reaction.type == 3);
+        const type_1 = reactions.filter((reaction) => reaction.type === 1);
+        const type_2 = reactions.filter((reaction) => reaction.type === 2);
+        const type_3 = reactions.filter((reaction) => reaction.type === 3);
         const number = reactions.length;
         return <div className={classes.listEmoji}>
             {(type_1.length !== 0) && <div className={classes.emoji} >👍</div>}
@@ -113,28 +120,54 @@ const Message = ({ notSelf, id, user, content, reactions, createdAt, socket }) =
         return date.toLocaleString('en-US');
     }
 
+    const handleDeleteMessage = () => {
+        setShow(false);
+        socket.emit(socketEvent.deleteMessage, { message_id: id });
+    }
+
     return (
-        <div onMouseEnter={() => setShow(true)}
-            onMouseLeave={() => setShow(false)}>
-            {notSelf && user && <Member avatarUrl={user.avatar} isOnline={user.online} username={user.username} />}
-            {notSelf &&
-                <div className={classes.otherMessage}>
-                    <div className={classes.contentMessage1} onMouseEnter={() => setShowTime(true)}
+        <div>
+            {!deleted && <div onMouseEnter={() => setShow(true)}
+                onMouseLeave={() => setShow(false)}>
+                {notSelf && user && <Member avatarUrl={user.avatar} isOnline={user.online} username={user.username} />}
+                {notSelf &&
+                    <div className={classes.otherMessage}>
+                        <div className={classes.contentMessage1} onMouseEnter={() => setShowTime(true)}
+                            onMouseLeave={() => setShowTime(false)}>
+                            {listEmoji()}
+                            {content}
+                            {showTime && <div className={classes.time}> {formatTime(createdAt)} </div>}
+                        </div>
+                        {show && <Reaction socket={socket} id={id} />}
+                    </div>}
+                {!notSelf && <div className={classes.selfMessage}>
+                    {show && <DeleteIcon className={classes.deleteButton} onClick={handleDeleteMessage} />}
+                    {show && <Reaction socket={socket} id={id} />}
+                    <div className={classes.contentMessage} onMouseEnter={() => setShowTime(true)}
                         onMouseLeave={() => setShowTime(false)}>
                         {listEmoji()}
                         {content}
-                        {showTime && <div className={classes.time}> {formatTime(createdAt)} </div>}
+                        {showTime && <div className={classes.time1}> {formatTime(createdAt)} </div>}
                     </div>
-                    {show && <Reaction socket={socket} id={id} />}
                 </div>}
-            {!notSelf && <div className={classes.selfMessage}>
-                {show && <Reaction socket={socket} id={id} />}
-                <div className={classes.contentMessage} onMouseEnter={() => setShowTime(true)}
-                    onMouseLeave={() => setShowTime(false)}>
-                    {listEmoji()}
-                    {content}
-                    {showTime && <div className={classes.time1}> {formatTime(createdAt)} </div>}
-                </div>
+
+
+            </div>}
+            {deleted && <div>
+                {notSelf && user && <Member avatarUrl={user.avatar} isOnline={user.online} username={user.username} />}
+                {notSelf &&
+                    <div className={classes.otherMessage} style={{color:"rgb(117,115,110)", background:"white", border:"solid 0.1px"}}>
+                        <div className={classes.contentMessage1}>
+                            this message had been deleted.
+                        </div>
+                    </div>}
+                {!notSelf && <div className={classes.selfMessage}>
+                    <div  className={classes.contentMessage} style={{color:"rgb(117,115,110)", background:"white",  border:"solid 0.1px"}}>
+                        this message had been deleted.
+                    </div>
+                </div>}
+
+
             </div>}
         </div>)
 }
