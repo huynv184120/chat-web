@@ -141,7 +141,7 @@ const Auth = () => {
             <div className={classes.authen}>
                 {login &&
                     <form autoComplete='off'>
-                        <div className={classes.loginForm}>
+                        <div className={classes.loginForm} onKeyDown={(e) => { if (e.key == 'Enter') loginHandle(); }}>
                             <h1>Login</h1>
                             <p style={{color:"red"}}>{loginForm.annouce}</p>
                             <TextField
@@ -197,7 +197,7 @@ const Auth = () => {
 
                 {signup &&
                     <form autoComplete='off'>
-                        <div className={classes.loginForm}>
+                        <div className={classes.signup}>
                             <h1>Create Account</h1>
                             <p style={{color:"red"}}>{signupForm.annouce}</p>
                             <TextField

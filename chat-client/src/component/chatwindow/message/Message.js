@@ -156,8 +156,8 @@ const Message = ({ notSelf, id, user, content, reactions, createdAt, deleted, so
             {deleted && <div>
                 {notSelf && user && <Member avatarUrl={user.avatar} isOnline={user.online} username={user.username} />}
                 {notSelf &&
-                    <div className={classes.otherMessage} style={{color:"rgb(117,115,110)", background:"white", border:"solid 0.1px"}}>
-                        <div className={classes.contentMessage1}>
+                    <div className={classes.otherMessage}>
+                        <div className={classes.contentMessage1} style={{color:"rgb(117,115,110)", background:"white", border:"solid 0.1px"}}>
                             this message had been deleted.
                         </div>
                     </div>}

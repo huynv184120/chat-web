@@ -57,8 +57,8 @@ const MyInfo = () => {
             </div>
             <div style={{margin:"auto", display:"flex", flexDirection:"column", alignItems:"center", marginTop:"20vh"}}>
                 <Avatar className={classes.large}/>
-                <p><b>email: </b> <i> {myinfo.email}</i></p>
-                <p><b>username: </b> <i> {myinfo.username}</i></p>
+                <p><b>email: </b> {myinfo&&<i> {myinfo.email}</i>}</p>
+                <p><b>username: </b> {myinfo&&<i> {myinfo.username}</i>}</p>
             </div>
         </div>
     )
