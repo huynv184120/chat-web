@@ -1,3 +1,7 @@
+This is a project that I worked on during my time as a university student.
+
+
+
 # chat-web
 This is a web application that allows you to create rooms to chat with other people.
 # Build with
